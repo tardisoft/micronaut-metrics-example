@@ -1,0 +1,137 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Micronaut Metrics Example</title>
+    <style>
+        h4 {
+            margin-top: 35px;
+        }
+
+        .metric a {
+            display: block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 0 0 10px 0;
+            text-decoration: underline;
+            color: black;
+        }
+
+        .metric a:hover {
+            background: #eee;
+        }
+
+        .metric a span {
+            margin: 0 2px;
+        }
+
+        .metric a span:first-child {
+            font-weight: 900;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Micronaut Metrics Example</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    </div>
+</nav>
+<div class="container" id="container">
+    <h4>Web Actions</h4>
+    <p>
+        Hello {name} (uses custom web.access): <a href="/hello/bob">/hello/bob</a><br/>
+        Hello World (uses custom web.access): <a href="/helloworld">/helloworld</a><br/>
+        Exception (uses default http.server.requests): <a href="/exception">/exception</a>
+    </p>
+
+    <h4>Metrics Endpoint</h4>
+    <p>Metrics Endpoint: <a href="/metrics">/metrics</a></p>
+
+    <h4>Example Metric Details</h4>
+    <p>
+        Standard Http Filter Metrics (http.server.requests): <a href="/metrics/http.server.requests">/metrics/http.server.requests</a><br/>
+        JVM Memory Used (jvm.memory.used): <a href="/metrics/jvm.memory.used">/metrics/jvm.memory.used</a><br/>
+        Custom Metric Counter (web.access): <a href="/metrics/web.access">/metrics/web.access</a><br/>
+        Custom Metric Timer (web.timer): <a href="/metrics/web.timer">/metrics/web.timer</a>
+    </p>
+
+    <h4>All Metrics (Ajax)</h4>
+    <div id="root"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+<script type="text/babel">
+
+    class Metrics extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                error: null,
+                isLoaded: false,
+                names: []
+            };
+        }
+
+        componentDidMount() {
+            fetch("/metrics")
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            isLoaded: true,
+                            names: result.names
+                        });
+                    },
+                    (error) => {
+                        this.setState({
+                            isLoaded: true,
+                            error
+                        });
+                    }
+                )
+        }
+
+        render() {
+            const {error, isLoaded, names} = this.state;
+            if (error) {
+                return <div>Error: {error.message}</div>;
+            } else if (!isLoaded) {
+                return <div>Loading...</div>;
+            } else {
+                return (
+                    <ul>
+                        {[].concat(names)
+                            .sort((a, b) => a > b)
+                            .map(name => (
+                                <div key={name} className="metric">
+                                    <a href={'/metrics/' + name}>/metrics/{name}</a>
+                                </div>
+                            ))}
+                    </ul>
+                );
+            }
+        }
+    }
+
+    ReactDOM.render(<Metrics/>, document.getElementById('root'));
+
+</script>
+</body>
+</html>

@@ -1,12 +1,3 @@
-# Micronaut Metrics Example
-
-An example project with some custom metrics and links to using metrics.
-
-`mvn compile exec:exec`
-
-The following is a few very contrived examples on how to use custom metrics. By default, the web filter does what these custom metrics do under the `http.server.requests` metric automatically.	`
-
-```java
 package io.micronaut.examples;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -65,4 +56,3 @@ public class IndexController {
                 .record(() -> Single.just("Hello World!"));
     }
 }
-```
