@@ -4,7 +4,11 @@ An example project with some custom metrics and links to using metrics.
 
 `mvn compile exec:exec`
 
-The following is a few very contrived examples on how to use custom metrics. By default, the web filter does what these custom metrics do under the `http.server.requests` metric automatically.	`
+This will start a server on host:port `http://localhost:8181`
+
+![dashboard](metrics.png)
+
+The following is a few very contrived examples that the index controller uses for custom metrics. By default, the web filter does what these custom metrics do under the `http.server.requests` metric automatically.	`
 
 ```java
 package io.micronaut.examples;
