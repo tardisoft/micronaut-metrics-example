@@ -12,7 +12,7 @@ buildscript {
 }
 
 version "1.0"
-group "io.micronaut.exaples"
+group "io.micronaut.examples"
 
 apply plugin:"io.spring.dependency-management"
 apply plugin:"com.github.johnrengelman.shadow"
@@ -28,16 +28,24 @@ repositories {
 }
 
 dependencyManagement {
-    repositories {
-        mavenLocal()
-    }
     imports {
-        mavenBom 'io.micronaut:bom:1.0.0-SNAPSHOT'
+        mavenBom 'io.micronaut:bom:1.0.0.BUILD-SNAPSHOT'
     }
 }
 
 dependencies {
-
+    annotationProcessor "io.micronaut:inject-java"
+    compile "io.micronaut:http-client"
+    compile "io.micronaut:http-server-netty"
+    compile "io.micronaut:inject"
+    compile "io.micronaut:runtime"
+    compile "io.micronaut.configuration:hibernate-validator"
+    compile "io.micronaut.configuration:micrometer-core"
+    compile "io.micronaut:management"
+    compileOnly "io.micronaut:inject-java"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+    testCompile "junit:junit:4.12"
+    testCompile "io.micronaut:inject-java"
 }
 
 shadowJar {

@@ -23,5 +23,4 @@ router.static.resources:
   paths:
     - classpath:static
 
-
 example.metric.filters.enabled: false
