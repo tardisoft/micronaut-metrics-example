@@ -16,3 +16,4 @@ bin/
 .project
 */META-INF/
 settings.xml
+dependency-reduced-pom.xml
