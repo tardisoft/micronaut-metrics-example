@@ -158,12 +158,4 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-snapshots</id>
-            <name>sonatype-snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
