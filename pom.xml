@@ -158,4 +158,17 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>artifactory-local</id>
+            <name>artifactory-local</name>
+            <url>http://artifactory:8081/artifactory/tardisoft-repo</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory-local</id>
+            <name>artifactory-local</name>
+            <url>http://artifactory:8081/artifactory/tardisoft-repo</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
