@@ -17,4 +17,20 @@ public class IndexControllerTest {
         assertEquals(client.toBlocking().exchange("/index.html").status(), HttpStatus.OK);
         server.stop();
     }
+
+    @Test
+    public void testMetrics() {
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class);
+        RxHttpClient client = server.getApplicationContext().createBean(RxHttpClient.class, server.getURL());
+        assertEquals(client.toBlocking().exchange("/metrics").status(), HttpStatus.OK);
+        server.stop();
+    }
+
+    @Test
+    public void testMetricsJvmMemo() {
+        EmbeddedServer server = ApplicationContext.run(EmbeddedServer.class);
+        RxHttpClient client = server.getApplicationContext().createBean(RxHttpClient.class, server.getURL());
+        assertEquals(client.toBlocking().exchange("/metrics/jvm.memory.used").status(), HttpStatus.OK);
+        server.stop();
+    }
 }

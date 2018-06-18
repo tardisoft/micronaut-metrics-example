@@ -10,16 +10,15 @@
 
     <name>metrics-example</name>
     <url>http://maven.apache.org</url>
-    <repositories>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>
-    </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <micronaut.version>1.0.0.BUILD-SNAPSHOT</micronaut.version>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <groovy-eclipse-compiler.version>2.9.2-01</groovy-eclipse-compiler.version>
+        <groovy-eclipse-batch.version>2.4.3-01</groovy-eclipse-batch.version>
+        <showDeprecation>false</showDeprecation>
+        <showWarnings>false</showWarnings>
     </properties>
 
     <build>
@@ -27,7 +26,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -83,11 +82,12 @@
             <artifactId>micrometer-core</artifactId>
             <version>${micronaut.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>io.micronaut.configuration</groupId>-->
-            <!--<artifactId>micrometer-registry-statsd</artifactId>-->
-            <!--<version>${micronaut.version}</version>-->
-        <!--</dependency>-->
+        <!--This also pulls in micrometer-core-->
+        <dependency>
+            <groupId>io.micronaut.configuration</groupId>
+            <artifactId>micrometer-registry-statsd</artifactId>
+            <version>${micronaut.version}</version>
+        </dependency>
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>management</artifactId>
@@ -96,6 +96,11 @@
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>validation</artifactId>
+            <version>${micronaut.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut.configuration</groupId>
+            <artifactId>hibernate-validator</artifactId>
             <version>${micronaut.version}</version>
         </dependency>
         <dependency>
@@ -141,4 +146,24 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
