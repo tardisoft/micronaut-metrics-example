@@ -78,8 +78,8 @@
             <version>${micronaut.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.micronaut.configuration</groupId>
-            <artifactId>micrometer-core</artifactId>
+            <groupId>io.micronaut</groupId>
+            <artifactId>core</artifactId>
             <version>${micronaut.version}</version>
         </dependency>
         <!--This also pulls in micrometer-core-->
@@ -96,11 +96,6 @@
         <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>validation</artifactId>
-            <version>${micronaut.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.micronaut.configuration</groupId>
-            <artifactId>hibernate-validator</artifactId>
             <version>${micronaut.version}</version>
         </dependency>
         <dependency>
