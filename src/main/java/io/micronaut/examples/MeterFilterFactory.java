@@ -8,6 +8,7 @@ import io.micronaut.context.annotation.Requires;
 
 import javax.inject.Singleton;
 import java.util.Arrays;
+import java.util.Collections;
 
 @Factory
 @Requires(property = "example.metric.filters.enabled", value = "true", defaultValue = "false")
@@ -32,7 +33,7 @@ public class MeterFilterFactory {
     @Bean
     @Singleton
     MeterFilter addCommonTagFilter() {
-        return MeterFilter.commonTags(Arrays.asList(Tag.of("scope", "demo")));
+        return MeterFilter.commonTags(Collections.singletonList(Tag.of("scope", "demo")));
     }
 
     /**

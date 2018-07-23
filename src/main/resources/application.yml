@@ -1,6 +1,6 @@
 micronaut:
-  server:
-    port: 8181
+#  server:
+#    port: 8181
   metrics:
     binders.jvm.enabled: true #optional true by default
     binders.uptime.enabled: true #optional true by default
@@ -17,10 +17,10 @@ micronaut:
   application:
     name: metrics-example
 
-router.static.resources:
-  enabled: true
-  mapping: /**
-  paths:
-    - classpath:static
+  router.static.resources:
+    enabled: true
+    mapping: /**
+    paths:
+      - classpath:static
 
 example.metric.filters.enabled: false

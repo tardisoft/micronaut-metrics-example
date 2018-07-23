@@ -78,8 +78,18 @@
             <version>${micronaut.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.reactivex</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
             <groupId>io.micronaut</groupId>
             <artifactId>core</artifactId>
+            <version>${micronaut.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micronaut</groupId>
+            <artifactId>inject</artifactId>
             <version>${micronaut.version}</version>
         </dependency>
         <!--This also pulls in micrometer-core-->

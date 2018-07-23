@@ -42,6 +42,7 @@ dependencies {
     compile "io.micronaut:runtime"
     compile "io.micronaut.configuration:hibernate-validator"
     compile "io.micronaut.configuration:micrometer-core"
+    compile "io.micronaut.configuration:micrometer-registry-statsd"
     compile "io.micronaut:management"
     compileOnly "io.micronaut:inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"

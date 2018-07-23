@@ -6,14 +6,12 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
-import io.micronaut.validation.Validated;
 import io.reactivex.Single;
 
 import javax.validation.constraints.NotBlank;
 import java.net.URI;
 
 @Controller("/")
-@Validated
 public class IndexController {
 
     private MeterRegistry meterRegistry;
@@ -23,7 +21,7 @@ public class IndexController {
     }
 
     @Produces(MediaType.TEXT_HTML)
-    @Get(uri = "/")
+    @Get("/")
     HttpResponse index() {
         meterRegistry
                 .counter("web.access", "controller", "index", "action", "index")
@@ -37,7 +35,7 @@ public class IndexController {
     }
 
     @Get("/hello/{name}")
-    public Single hello(@NotBlank String name) {
+    public Single<String> hello(@NotBlank String name) {
         meterRegistry
                 .counter("web.access", "controller", "index", "action", "hello")
                 .increment();
@@ -47,7 +45,7 @@ public class IndexController {
     }
 
     @Get("/helloworld")
-    public Single helloworld() {
+    public Single<String> helloworld() {
         meterRegistry
                 .counter("web.access", "controller", "index", "action", "helloworld")
                 .increment();
