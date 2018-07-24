@@ -41,9 +41,13 @@ dependencies {
     compile "io.micronaut:inject"
     compile "io.micronaut:runtime"
     compile "io.micronaut.configuration:hibernate-validator"
+
+    //Metrics
     compile "io.micronaut.configuration:micrometer-core"
     compile "io.micronaut.configuration:micrometer-registry-statsd"
+    //Metrics Endpoint
     compile "io.micronaut:management"
+
     compileOnly "io.micronaut:inject-java"
     runtime "ch.qos.logback:logback-classic:1.2.3"
     testCompile "junit:junit:4.12"
