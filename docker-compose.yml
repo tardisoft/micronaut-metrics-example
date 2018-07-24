@@ -1,0 +1,53 @@
+version: "3"
+
+services:
+  datadog-agent:
+    image: datadog/agent:latest
+    networks:
+      - micronaut
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    environment:
+      - DD_API_KEY=160de77260c475f967125ebe67c5b31a
+      - DD_APM_ENABLED=true
+      - DD_PROCESS_AGENT_ENABLED=true
+      - DD_TAGS=env:local, application:micronaut-metrics
+    links:
+      - micronaut-metrics1
+      - micronaut-metrics2
+      - micronaut-metrics3
+    ports:
+      - "8126:8126"
+
+  micronaut-metrics1:
+    image: micronaut-metrics:latest
+    networks:
+      - micronaut
+    expose:
+      - 8181
+    ports:
+      - 8181:8181
+
+  micronaut-metrics2:
+    image: micronaut-metrics:latest
+    networks:
+      - micronaut
+    expose:
+      - 8282
+    ports:
+      - 8282:8181
+
+  micronaut-metrics3:
+    image: micronaut-metrics:latest
+    networks:
+      - micronaut
+    expose:
+      - 8383
+    ports:
+      - 8383:8181
+
+networks:
+  micronaut:
+     driver: bridge

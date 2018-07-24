@@ -17,3 +17,4 @@ bin/
 */META-INF/
 settings.xml
 dependency-reduced-pom.xml
+docker-compose.yml

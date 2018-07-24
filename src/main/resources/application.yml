@@ -1,6 +1,6 @@
 micronaut:
-#  server:
-#    port: 8181
+  server:
+    port: 8181
   metrics:
     binders.jvm.enabled: true #optional true by default
     binders.uptime.enabled: true #optional true by default
