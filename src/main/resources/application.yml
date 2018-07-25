@@ -1,0 +1,26 @@
+micronaut:
+  server:
+    port: 8181
+  metrics:
+    binders.jvm.enabled: true #optional true by default
+    binders.uptime.enabled: true #optional true by default
+    binders.processor.enabled: true #optional true by default
+    binders.files.enabled: true #optional true by default
+    binders.logback.enabled: true #optional true by default
+    enabled: true #optional true by default
+    statsd:
+      enabled: true
+      flavor: datadog
+      step: PT1M
+      host: localhost
+      port: 8125
+  application:
+    name: metrics-example
+
+  router.static.resources:
+    enabled: true
+    mapping: /**
+    paths:
+      - classpath:static
+
+example.metric.filters.enabled: false

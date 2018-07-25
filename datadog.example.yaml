@@ -1,0 +1,16 @@
+dd_url: https://app.datadoghq.com
+api_key:
+non_local_traffic: no
+dogstatsd_non_local_traffic: no
+log_to_syslog: no
+log_level: error
+tags: env:local, server:netty
+apm_config:
+  enabled: true
+  replace_tags:
+    - name: "error.stack"
+      pattern: "(?s).*"
+    - name: "error.msg"
+      pattern: "(?s).*"
+process_config:
+  enabled: "true"

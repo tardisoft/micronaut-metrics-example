@@ -1,0 +1,57 @@
+version: "3"
+
+services:
+  micronaut-metrics1:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: micronaut-metrics:latest
+    environment:
+      - DD_SERVICE_NAME=micronaut1
+      - DD_APM_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_INTEGRATION_NETTY_ENABLED=true
+    networks:
+      - micronaut
+    expose:
+      - 8181
+    ports:
+      - 8181:8181
+
+  micronaut-metrics2:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: micronaut-metrics:latest
+    environment:
+      - DD_SERVICE_NAME=micronaut2
+      - DD_APM_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_INTEGRATION_NETTY_ENABLED=true
+    networks:
+      - micronaut
+    expose:
+      - 8282
+    ports:
+      - 8282:8181
+
+  micronaut-metrics3:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: micronaut-metrics:latest
+    environment:
+      - DD_SERVICE_NAME=micronaut3
+      - DD_APM_ENABLED=true
+      - DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL=true
+      - DD_INTEGRATION_NETTY_ENABLED=true
+    networks:
+      - micronaut
+    expose:
+      - 8383
+    ports:
+      - 8383:8181
+
+networks:
+  micronaut:
+     driver: bridge

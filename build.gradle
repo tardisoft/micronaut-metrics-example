@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.15"
+    }
+}
+
+version "1.0.0-SNAPSHOT"
+group "io.micronaut.examples"
+
+apply plugin:"io.spring.dependency-management"
+apply plugin:"com.github.johnrengelman.shadow"
+apply plugin:"application"
+apply plugin:"java"
+apply plugin:"groovy"
+apply plugin:"net.ltgt.apt-eclipse"
+apply plugin:"net.ltgt.apt-idea"
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:bom:1.0.0.BUILD-SNAPSHOT'
+    }
+}
+
+dependencies {
+    annotationProcessor "io.micronaut:inject-java"
+    compile "io.micronaut:http-client"
+    compile "io.micronaut:http-server-netty"
+    compile "io.micronaut:inject"
+    compile "io.micronaut:runtime"
+    compile "io.micronaut.configuration:hibernate-validator"
+
+    //Metrics
+    compile "io.micronaut.configuration:micrometer-core"
+    compile "io.micronaut.configuration:micrometer-registry-statsd"
+    //Metrics Endpoint
+    compile "io.micronaut:management"
+
+    compileOnly "io.micronaut:inject-java"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+    testCompile "junit:junit:4.12"
+    testCompile "io.micronaut:inject-java"
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+mainClassName = "io.micronaut.examples.Application"
+compileJava.options.compilerArgs += '-parameters'
+compileTestJava.options.compilerArgs += '-parameters'
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
