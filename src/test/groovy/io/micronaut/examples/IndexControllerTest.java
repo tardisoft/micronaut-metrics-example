@@ -1,10 +1,10 @@
 package io.micronaut.examples;
 
+import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.runtime.server.EmbeddedServer;
 import org.junit.Test;
-import io.micronaut.context.ApplicationContext;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,7 +17,6 @@ public class IndexControllerTest {
         assertEquals(client.toBlocking().exchange("/").status(), HttpStatus.OK);
         server.stop();
     }
-
 
     @Test
     public void testIndexHtml() {

@@ -15,9 +15,11 @@ import java.net.URI;
 public class IndexController {
 
     private MeterRegistry meterRegistry;
+    private PersonService personService;
 
-    public IndexController(MeterRegistry meterRegistry) {
+    public IndexController(MeterRegistry meterRegistry, PersonService personService) {
         this.meterRegistry = meterRegistry;
+        this.personService = personService;
     }
 
     @Produces(MediaType.TEXT_HTML)
@@ -41,7 +43,7 @@ public class IndexController {
                 .increment();
         return meterRegistry
                 .timer("web.timer", "controller", "index", "action", "hello")
-                .record(() -> Single.just("Hello " + name));
+                .record(() -> Single.just("Hello " + personService.upperCase(name)));
     }
 
     @Get("/helloworld")
