@@ -7,7 +7,6 @@ import io.micronaut.context.annotation.Factory;
 import io.micronaut.context.annotation.Requires;
 
 import javax.inject.Singleton;
-import java.util.Arrays;
 import java.util.Collections;
 
 @Factory

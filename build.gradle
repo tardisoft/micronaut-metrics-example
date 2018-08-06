@@ -36,6 +36,9 @@ dependencyManagement {
 
 dependencies {
     annotationProcessor "io.micronaut:inject-java"
+    compile "io.micronaut.configuration:jdbc-hikari"
+    compile "io.micronaut:spring"
+
     compile "io.micronaut:http-client"
     compile "io.micronaut:http-server-netty"
     compile "io.micronaut:inject"
@@ -48,8 +51,12 @@ dependencies {
     //Metrics Endpoint
     compile "io.micronaut:management"
 
-    compileOnly "io.micronaut:inject-java"
+    runtime "org.springframework:spring-jdbc"
     runtime "ch.qos.logback:logback-classic:1.2.3"
+    runtime "com.h2database:h2:1.4.196"
+
+    compileOnly "io.micronaut:inject-java"
+
     testCompile "junit:junit:4.12"
     testCompile "io.micronaut:inject-java"
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
