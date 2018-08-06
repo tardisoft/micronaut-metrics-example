@@ -79,6 +79,53 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
 <script type="text/babel">
 
+    class Details extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                error: null,
+                isLoaded: false,
+                name: props.name,
+                data: {}
+            };
+        }
+
+        // componentDidMount() {
+        //     fetch("/metrics/" + this.state.name)
+        //         .then(res => res.json())
+        //         .then(
+        //             (result) => {
+        //                 this.setState({
+        //                     isLoaded: true,
+        //                     data: result
+        //                 });
+        //             },
+        //             (error) => {
+        //                 this.setState({
+        //                     isLoaded: true,
+        //                     error
+        //                 });
+        //             }
+        //         )
+        // }
+
+        render() {
+            const {error, isLoaded, name, data} = this.state;
+            // if (error) {
+            //     return <div>Error: {error.message}</div>;
+            // } else if (!isLoaded) {
+            //     return <div>Loading...</div>;
+            // } else {
+            return (
+                <div className="metric">
+                    {name}
+                </div>
+            );
+            // }
+        }
+
+    }
+
     class Metrics extends React.Component {
         constructor(props) {
             super(props);
@@ -120,13 +167,50 @@
                         {[].concat(names)
                             .sort((a, b) => a > b)
                             .map(name => (
-                                <div key={name} className="metric">
-                                    <a href={'/metrics/' + name}>/metrics/{name}</a>
-                                </div>
+                                <Metric key={name} name={name}/>
                             ))}
                     </ul>
                 );
             }
+        }
+    }
+
+    class Metric extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                name: props.name,
+                details: null
+            }
+        }
+
+
+        showDetails(name) {
+            fetch("/metrics/" + name)
+                .then(res => res.json())
+                .then(
+                    (result) => {
+                        this.setState({
+                            details: result
+                        });
+                    },
+                    (error) => {
+                        this.setState({
+                            error
+                        });
+                    }
+                )
+        }
+
+        render() {
+            const {name, details} = this.state;
+
+            return (
+                <div key={name} className="metric">
+                    <a onClick={() => this.showDetails(name)}>/metrics/{name}</a>
+                    <pre>{details ? JSON.stringify(details, null, 4) : ''}</pre>
+                </div>
+            );
         }
     }
 
